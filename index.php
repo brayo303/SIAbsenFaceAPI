@@ -24,7 +24,7 @@
         <div class="mb-5"></div>
         <div id="my_camera" class="mx-auto"></div>
         <div class="mb-3"></div>
-        <input type=button value="Configure" onClick="configure()" class="btn btn-primary">
+        <!--<input type=button value="Configure" onClick="configure()" class="btn btn-primary">-->
         <input type=button value="Take Snapshot" onClick="take_snapshot()" class="btn btn-secondary">
         <input type=button value="Save Snapshot" onClick="saveSnap()" class="btn btn-success">
         <div class="mb-3"></div>
@@ -38,6 +38,7 @@
     <script type="text/javascript" src="webcam.min.js"></script>
     <script>
         // Configure a few settings and attach camera
+        configure();
         function configure() {
             Webcam.set({
                 width: 320,
