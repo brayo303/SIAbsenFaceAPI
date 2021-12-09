@@ -1,3 +1,3 @@
 <?php
-    echo getenv();
+    echo getenv('API_KEY');
 ?>
