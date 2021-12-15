@@ -84,8 +84,15 @@
             curl_close($curl);
 
             $personId = $array[0]->candidates[0]->personId;
-            $mahasiswa = $this->getMahasiswaById($personId);
-            return $mahasiswa;
+            $confidence = $array[0]->candidates[0]->confidence;
+            $name = $this->getMahasiswaById($personId)->name;
+
+            $output = array(
+                "personId" => $personId,
+                "confidence" => $confidence,
+                "name" => $name
+            );
+            return $output;
         }
     }
 
