@@ -141,18 +141,17 @@
 
                 // show results, hide photo booth
                 document.getElementById('results').style.display = '';
-                document.getElementById('my_photo_booth').style.display = 'none';
+                //document.getElementById('my_photo_booth').style.display = 'none';
 
             });
         }
 
         function simpanGambar() {
-            var gh = imageLinks;
-            var a = document.createElement('a');
-            a.href = gh;
-            a.download = 'image.jpeg';
+            Webcam.upload( imageLinks, 'upload.php', function(code, text) {
+                console.log('Save successfully');
+                
+            });
 
-            a.click()
         }
     </script>
 </body>
