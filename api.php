@@ -59,6 +59,9 @@
             $array= json_decode(curl_exec($curl));
             curl_close($curl);
 
+            if(empty($array)){
+                return false;
+            }
             $faceId = $array[0]->faceId;
 
             $curl = curl_init("https://unparfaceapi.cognitiveservices.azure.com/face/v1.0/identify");
@@ -134,14 +137,11 @@
             //train
             $curl = curl_init('https://unparfaceapi.cognitiveservices.azure.com/face/v1.0/persongroups/groupmahasiswa/train');
             $headers = array(
-                'Ocp-Apim-Subscription-Key: '.$_ENV['API_KEY'],
-                'Content-Type: application/json'
+                'Ocp-Apim-Subscription-Key: '.$_ENV['API_KEY']
             );
-            $data = json_encode(array(
-                "url" => $url
-            ));
 
             curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, array());
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             if(curl_exec($curl) === false){
                 return false;
