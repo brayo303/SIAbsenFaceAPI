@@ -11,10 +11,16 @@ class Controller {
     public function __construct()
     {
         try {
-            $this->db = new PDO("sqlite:database.sqlite");
-            $this->install();
+            if(!file_exists("database.sqlite3")){
+                $this->db = new PDO("sqlite:database.sqlite3");
+                $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->install();
+            }else{
+                $this->db = new PDO("sqlite:database.sqlite3");
+                $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
         } catch (PDOException $e) {
-            die("Database not connected!");
+            die($e);
         } 
     }
 
@@ -43,42 +49,39 @@ class Controller {
                 CONSTRAINT fk_Jadwal FOREIGN KEY (idJ) REFERENCES Jadwal(idJ)
             )";
             
-        $this->db->query($tb_Mahasiswa);
-        $this->db->query($tb_Jadwal);
-        $this->db->query($tb_Absen);
+        $this->db->exec($tb_Mahasiswa);
+        $this->db->exec($tb_Jadwal);
+        $this->db->exec($tb_Absen);
 
         // insert data Mahasiswa
-        $this->db->exec("INSERT INTO Mahasiswa VALUES ('Geraldi', '6181801001', 'image/geraldi.png')");
-        $this->db->exec("INSERT INTO Mahasiswa VALUES ('Denise', '6181801002', 'image/denise.png')");
-        $this->db->exec("INSERT INTO Mahasiswa VALUES ('Julyus', '6181801003', 'image/julyus.png')");
-        $this->db->exec("INSERT INTO Mahasiswa VALUES ('Chris', '6181801004', 'image/chris.png')");
-        $this->db->exec("INSERT INTO Mahasiswa VALUES ('Bryan', '6181801005', 'image/bryan.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Geraldi', '6181801001', 'image/geraldi.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Denise', '6181801002', 'image/denise.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Julyus', '6181801003', 'image/julyus.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Chris', '6181801004', 'image/chris.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Bryan', '6181801005', 'image/bryan.png')");
 
         // insert data Jadwal
-        $this->db->exec("INSERT INTO Jadwal VALUES ('2021-12-15 07:00:00.000', '2021-12-15 09:00:00.000', 'Layanan Berbasis Web');");
-        $this->db->exec("INSERT INTO Jadwal VALUES ('2021-12-15 09:00:00.000', '2021-12-15 10:00:00.000', 'Dasar-dasar Pemrograman');");
-        $this->db->exec("INSERT INTO Jadwal VALUES ('2021-12-15 11:00:00.000', '2021-12-15 13:00:00.000', 'Pemodelan untuk Komputasi');");
-        $this->db->exec("INSERT INTO Jadwal VALUES ('2021-12-15 14:00:00.000', '2021-12-15 15:00:00.000', 'Matematika Dasar');");
+        $this->db->exec("INSERT INTO Jadwal(startTime,endTime,namaMatkul) VALUES ('2021-12-15 07:00:00.000', '2021-12-15 09:00:00.000', 'Layanan Berbasis Web');");
+        $this->db->exec("INSERT INTO Jadwal(startTime,endTime,namaMatkul) VALUES ('2021-12-15 09:00:00.000', '2021-12-15 10:00:00.000', 'Dasar-dasar Pemrograman');");
+        $this->db->exec("INSERT INTO Jadwal(startTime,endTime,namaMatkul) VALUES ('2021-12-15 11:00:00.000', '2021-12-15 13:00:00.000', 'Pemodelan untuk Komputasi');");
+        $this->db->exec("INSERT INTO Jadwal(startTime,endTime,namaMatkul) VALUES ('2021-12-15 14:00:00.000', '2021-12-15 15:00:00.000', 'Matematika Dasar');");
     }
 
     public function getAll($table) {
         // statement
         $stmt = $this->db->prepare("SELECT * FROM $table");
         $stmt->execute();
-
-        $data = array();
-        while ($rows = $stmt->fetch()) {
-            $data[] = $rows;
-        }
+        $data = $stmt->fetchAll();
+        
 
         return $data;
     }
 
-    public function insertAbsen() {
-        $confidence = $_POST['confidence'];
-        $hadir = $_POST['hadir'];
-        $id = $_POST['id'];
-        $idJ = $_POST['idJ'];
+    public function insertAbsen($confidence, $hadir, $id , $idJ) {
+        // $confidence = $_POST['confidence'];
+        // $hadir = $_POST['hadir'];
+        // $id = $_POST['id'];
+        // $idJ = $_POST['idJ'];
 
         $sql = "INSERT INTO Absen VALUES (:confidence, :hadir, :id, :idJ)";
         $stmt = $this->db->prepare($sql);
@@ -89,11 +92,11 @@ class Controller {
         $stmt->execute();
     }
 
-    public function insertMahasiswa() {
-        $id = $_POST['id'];
-        $nama = $_POST['nama'];
-        $npm = $_POST['npm'];
-        $urlPhoto = $_POST['urlPhoto'];
+    public function insertMahasiswa($id,$nama,$npm,$urlPhoto) {
+        // $id = $_POST['id'];
+        // $nama = $_POST['nama'];
+        // $npm = $_POST['npm'];
+        // $urlPhoto = $_POST['urlPhoto'];
 
         $sql = "INSERT INTO Absen VALUES (:id, :nama, :npm, :urlPhoto)";
         $stmt = $this->db->prepare($sql);
@@ -127,3 +130,6 @@ class Controller {
         $stmt->execute();
     }
 }
+
+$con = new Controller();
+var_dump($con->getAll('Mahasiswa'));
