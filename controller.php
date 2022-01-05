@@ -54,11 +54,11 @@ class Controller {
         $this->db->exec($tb_Absen);
 
         // insert data Mahasiswa
-        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Geraldi', '6181801001', 'image/geraldi.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Geraldi Akira Surya', '6181801001', 'image/geraldi.png')");
         $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Denise', '6181801002', 'image/denise.png')");
-        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Julyus', '6181801003', 'image/julyus.png')");
-        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Chris', '6181801004', 'image/chris.png')");
-        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Bryan', '6181801005', 'image/bryan.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Julyus Andreas', '6181801003', 'image/julyus.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Chris A', '6181801004', 'image/chris.png')");
+        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Bryan Heryanto', '6181801005', 'image/bryan.png')");
 
         // insert data Jadwal
         $this->db->exec("INSERT INTO Jadwal(startTime,endTime,namaMatkul) VALUES ('2021-12-15 07:00:00.000', '2021-12-15 09:00:00.000', 'Layanan Berbasis Web');");
@@ -73,6 +73,17 @@ class Controller {
         $stmt->execute();
         $data = $stmt->fetchAll();
         
+
+        return $data;
+    }
+
+    public function searchIdByMahasiswa($nama) {
+        $sql = "SELECT id FROM Mahasiswa WHERE nama=:nama";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":nama", $nama);
+        $stmt->execute();
+
+        $data = $stmt->fetch();
 
         return $data;
     }
@@ -129,3 +140,5 @@ class Controller {
 // var_dump($con->insertMahasiswa('Test','Test','Test'));
 // var_dump($con->getAll('Mahasiswa'));
 // var_dump($con->delete(6,'id','Mahasiswa'));
+
+// var_dump($con->searchIdByMahasiswa("Bryan"));
