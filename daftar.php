@@ -45,7 +45,7 @@
 
 <body class="bg-dark">
     <div class="mt-5 container text-center mx-auto text-light">
-        <form class="form" action="datar_action.php" method="post" enctype="multipart/form-data">
+        <form class="form" action="daftar_action.php" method="post" enctype="multipart/form-data">
             <div class="form-grid">
                 <label for="">Nama</label>
                 <input type="text" id="nama" name="nama" />
