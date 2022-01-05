@@ -125,7 +125,7 @@ class Controller {
     }
 }
 
-$con = new Controller();
+// $con = new Controller();
 // var_dump($con->insertMahasiswa('Test','Test','Test'));
-var_dump($con->getAll('Mahasiswa'));
+// var_dump($con->getAll('Mahasiswa'));
 // var_dump($con->delete(6,'id','Mahasiswa'));

@@ -90,7 +90,7 @@
         var shutter = new Audio();
         shutter.autoplay = false;
         shutter.src = navigator.userAgent.match(/Firefox/) ? 'shutter.ogg' : 'shutter.mp3';
-
+        var photoLink;
         function preview_snapshot() {
             // play sound effect
             try {
@@ -98,7 +98,7 @@
             } catch (e) {
                 ;
             } // fails in IE
-            shutter.play();
+            // shutter.play();
 
             // freeze camera so user can preview current frame
             //Webcam.freeze();
@@ -129,27 +129,18 @@
 
         function simpanGambar() {
             Webcam.upload( imageLinks, 'upload.php', function(code, text) {
-                console.log('Save successfully');
-                
+                console.log(text);
+                // document.querySelector("#modal").style.display='flex';
+                // setTimeout(reset, 1000);
             });
+            
 
         }
 
-        function getResponse(){
-            
-            fetch('test.php')
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    document.querySelector("#modal").style.display='flex';
-                    setTimeout(reset, 1000);
-                }).catch((error) => {
-                    reset();
-                });
+        
 
-            
-            
-        }
+        
+        
 
         function reset(){
             Webcam.unfreeze();
