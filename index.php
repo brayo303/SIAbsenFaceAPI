@@ -135,7 +135,7 @@
                 // display results in page
                 document.getElementById('hasil-gambar').innerHTML =
                     '<img src="' + data_uri + '"/><br/></br>';
-                imageLink = data_uri;
+                imageLinks = data_uri;
                 // shut down camera, stop capturing
                 Webcam.reset();
 
