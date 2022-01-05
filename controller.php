@@ -77,13 +77,13 @@ class Controller {
         return $data;
     }
 
-    public function insertAbsen($confidence, $hadir, $id , $idJ) {
+    public function insertAbsen($confidence, $hadir, $id, $idJ) {
         // $confidence = $_POST['confidence'];
         // $hadir = $_POST['hadir'];
         // $id = $_POST['id'];
         // $idJ = $_POST['idJ'];
 
-        $sql = "INSERT INTO Absen VALUES (:confidence, :hadir, :id, :idJ)";
+        $sql = "INSERT INTO Absen(confidence,hadir,id,idJ) VALUES (:confidence, :hadir, :id, :idJ)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":confidence", $confidence);
         $stmt->bindParam(":hadir", $hadir);
@@ -92,30 +92,26 @@ class Controller {
         $stmt->execute();
     }
 
-    public function insertMahasiswa($id,$nama,$npm,$urlPhoto) {
-        // $id = $_POST['id'];
+    public function insertMahasiswa($nama,$npm,$urlPhoto) {
         // $nama = $_POST['nama'];
         // $npm = $_POST['npm'];
         // $urlPhoto = $_POST['urlPhoto'];
 
-        $sql = "INSERT INTO Absen VALUES (:id, :nama, :npm, :urlPhoto)";
+        $sql = "INSERT INTO Mahasiswa(nama,npm,urlPhoto) VALUES (:nama, :npm, :urlPhoto)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":id", $id);
         $stmt->bindParam(":nama", $nama);
         $stmt->bindParam(":npm", $npm);
         $stmt->bindParam(":urlPhoto", $urlPhoto);
         $stmt->execute();
     }
 
-    public function insertJadwal() {
-        $idJ = $_POST['idJ'];
-        $startTime = $_POST['startTime'];
-        $endTime = $_POST['endTime'];
-        $namaMatkul = $_POST['namaMatkul'];
+    public function insertJadwal($startTime, $endTime, $namaMatkul) {
+        // $startTime = $_POST['startTime'];
+        // $endTime = $_POST['endTime'];
+        // $namaMatkul = $_POST['namaMatkul'];
 
-        $sql = "INSERT INTO Absen VALUES (:idJ, :startTime, :endTime, :namaMatkul)";
+        $sql = "INSERT INTO Jadwal(startTime,endTime,namaMatkul) VALUES (:startTime, :endTime, :namaMatkul)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":idJ", $idJ);
         $stmt->bindParam(":startTime", $startTime);
         $stmt->bindParam(":endTime", $endTime);
         $stmt->bindParam(":namaMatkul", $namaMatkul);
@@ -132,4 +128,5 @@ class Controller {
 }
 
 $con = new Controller();
+var_dump($con->insertMahasiswa('Test','Test','Test'));
 var_dump($con->getAll('Mahasiswa'));
