@@ -118,9 +118,7 @@ class Controller {
         $stmt->execute();
     }
 
-    public function delete($column, $table) {
-        $id = $_POST['id'];
-
+    public function delete($id, $column, $table) {
         $stmt = $this->db->prepare("DELETE FROM $table WHERE $column=:$column");
         $stmt->bindParam(":$column", $id);
         $stmt->execute();
@@ -128,5 +126,6 @@ class Controller {
 }
 
 $con = new Controller();
-var_dump($con->insertMahasiswa('Test','Test','Test'));
+// var_dump($con->insertMahasiswa('Test','Test','Test'));
 var_dump($con->getAll('Mahasiswa'));
+// var_dump($con->delete(6,'id','Mahasiswa'));
