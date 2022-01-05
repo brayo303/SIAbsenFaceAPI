@@ -119,8 +119,8 @@ class Controller {
         $stmt->execute();
     }
 
-    public function delete($id, $column, $table) {
-        $id = $_POST[$id];
+    public function delete($column, $table) {
+        $id = $_POST['id'];
 
         $stmt = $this->db->prepare("DELETE FROM $table WHERE $column=:$column");
         $stmt->bindParam(":$column", $id);
