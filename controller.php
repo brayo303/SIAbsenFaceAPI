@@ -89,12 +89,12 @@ class Controller {
     }
 
     public function searchMahasiswaByid($id) {
-        $sql = "SELECT nama FROM Mahasiswa WHERE id=:id";
+        $sql = "SELECT * FROM Mahasiswa WHERE id=:id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
 
-        $data = $stmt->fetch();
+        $data = $stmt->fetchAll();
 
         return $data;
     }
