@@ -46,8 +46,9 @@
         echo "Sorry, there was an error uploading your file.";
       }
     }
-    var_dump($_POST);
+    $url = 'https://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/upload/' . basename($_FILES["photo"]["name"]);
     $con = new Controller();
-    $con->insertMahasiswa($_POST['nama'],$_POST['npm'],$target_file);
-    var_dump($con->getAll("Mahasiswa"));
+    $con->insertMahasiswa($_POST['nama'],$_POST['npm'],$url);
+    $api = new API();
+    $api->addMahasiswa($_POST['nama'],$url);
 ?>
