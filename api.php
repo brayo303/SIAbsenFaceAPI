@@ -1,4 +1,5 @@
 <?php
+    namespace controllers;
 
     if (empty($_ENV)) {
         include "./DotEnv.php";

@@ -1,4 +1,6 @@
 <?php
+namespace controllers;
+
 require_once "api.php";
 require_once "controller.php";
 

@@ -1,4 +1,6 @@
 <?php
+    namespace controllers;
+
     require_once "api.php";
     require_once "controller.php";
 
@@ -44,8 +46,8 @@
         echo "Sorry, there was an error uploading your file.";
       }
     }
-
+    var_dump($_POST);
     $con = new Controller();
-    $con->nsertMahasiswa($_POST['name'],$_POST['npm'],$_POST['photo']);
-    var_dump(getAll("Mahasiswa"));
+    $con->insertMahasiswa($_POST['nama'],$_POST['npm'],$target_file);
+    var_dump($con->getAll("Mahasiswa"));
 ?>
