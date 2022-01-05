@@ -24,54 +24,43 @@
                 <h1 class="display-6">Nama Matakuliah: </h1>
             </div>
             <div class="col-sm-6 d-flex justify-content-center align-items-center">
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle btn-secondary" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                        Pilih Mata Kuliah
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                        <li><a class="dropdown-item active" href="#">Matakuliah 1</a></li>
-                        <li><a class="dropdown-item" href="#">Matakuliah 2</a></li>
-                        <li><a class="dropdown-item" href="#">Matakuliah 3</a></li>
-                    </ul>
-                </div>
+                <select class="form-select bg-secondary text-light" aria-label="Pilih Mata Kuliah">
+                    <option value="1">Mata Kuliah 1</option>
+                    <option value="2">Mata Kuliah 2</option>
+                    <option value="3">Mata Kuliah 3</option>
+                </select>
             </div>
         </div>
         <div id="my_camera" class="mx-auto mt-5 mb-4"></div>
         <form action="">
             <div id="pre_take_buttons">
                 <!-- This button is shown before the user takes a snapshot -->
-                <input type=button value="Ambil Gambar" onClick="preview_snapshot()" class="btn btn-primary">
-            </div>
-            <div id="post_take_buttons" style="display:none">
-                <!-- These buttons are shown after a snapshot is taken -->
-                <input type=button value="Ambil Ulang" onClick="cancel_preview()" class="btn btn-danger shadow rounded">
-                <input type=button data-bs-toggle="modal" data-bs-target="#exampleModal" value="Simpan Gambar" onClick="save_photo()" class="btn btn-success shadow rounded">
+                <input type=button value="Absen" onClick="preview_snapshot()" class="btn btn-primary">
             </div>
         </form>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Hasil Gambar</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="window.location.reload();"></button>
+        
+    </div>
+    <div class="modal " id ="modal" style="justify-content: center;" tabindex="-1" role="dialog">
+        <div class="modal-dialog-centered" role="document" style = "width:50vh">
+            <div class="modal-content bg-secondary">
+            
+                <div class="modal-header">
+                    <h1 class="text-light">Absensi Berhasil</h1>
+                </div class="modal-body">
+                <div style="padding:2vh">
+                    <div class="rounded-circle" style="height:50vh;width:100%; overflow:hidden">
+                        <img src = "upload/bryan.jpg" style= "width:100%">
+                        
                     </div>
-                    <div class="modal-body" id="hasil-gambar">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.location.reload();">Tutup</button>
-                        <button type=" button" class="btn btn-primary" onclick="simpanGambar()">Absen</button>
-                    </div>
-                </div>
+                    <h5 class="text-light">Nama Mahasiswa : Bryan Heryanto</h1>
+                <div>
+            
             </div>
         </div>
-        <div id="results"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="webcam.min.js"></script>
-    <div id="results" style="display:none">
-        <!-- Your captured image will appear here... -->
-    </div>
     <script>
         Webcam.set({
             // live preview size
@@ -112,38 +101,30 @@
             shutter.play();
 
             // freeze camera so user can preview current frame
-            Webcam.freeze();
+            //Webcam.freeze();
 
             // swap button sets
-            document.getElementById('pre_take_buttons').style.display = 'none';
-            document.getElementById('post_take_buttons').style.display = '';
+           
+            save_photo();
+            simpanGambar();
+            getResponse();
         }
 
-        function cancel_preview() {
-            // cancel preview freeze and return to live camera view
-            Webcam.unfreeze();
-
-            // swap buttons back to first set
-            document.getElementById('pre_take_buttons').style.display = '';
-            document.getElementById('post_take_buttons').style.display = 'none';
-        }
         var imageLinks = "";
 
         function save_photo() {
             // actually snap photo (from preview freeze) and display it
             Webcam.snap(function(data_uri) {
-                // display results in page
-                document.getElementById('hasil-gambar').innerHTML =
-                    '<img src="' + data_uri + '"/><br/></br>';
+                Webcam.freeze();
                 imageLinks = data_uri;
-                // shut down camera, stop capturing
-                Webcam.reset();
+                
 
-                // show results, hide photo booth
-                document.getElementById('results').style.display = '';
-                //document.getElementById('my_photo_booth').style.display = 'none';
-
+                
+                
+               
             });
+
+           
         }
 
         function simpanGambar() {
@@ -153,6 +134,29 @@
             });
 
         }
+
+        function getResponse(){
+            
+            fetch('test.php')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    document.querySelector("#modal").style.display='flex';
+                    setTimeout(reset, 1000);
+                }).catch((error) => {
+                    reset();
+                });
+
+            
+            
+        }
+
+        function reset(){
+            Webcam.unfreeze();
+            document.querySelector("#modal").style.display='none';
+        }
+
+        
     </script>
 </body>
 
