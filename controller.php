@@ -88,6 +88,17 @@ class Controller {
         return $data;
     }
 
+    public function searchMahasiswaByid($id) {
+        $sql = "SELECT nama FROM Mahasiswa WHERE id=:id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+
+        $data = $stmt->fetch();
+
+        return $data;
+    }
+
     public function insertAbsen($confidence, $hadir, $id, $idJ) {
         // $confidence = $_POST['confidence'];
         // $hadir = $_POST['hadir'];
