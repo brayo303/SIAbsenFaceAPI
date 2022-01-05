@@ -19,18 +19,7 @@
 
 <body class="bg-dark">
     <div class="mt-5 container text-center mx-auto text-light">
-        <div class="row">
-            <div class="col-sm-6 d-flex justify-content-center align-items-center">
-                <h1 class="display-6">Nama Matakuliah: </h1>
-            </div>
-            <div class="col-sm-6 d-flex justify-content-center align-items-center">
-                <select class="form-select bg-secondary text-light" aria-label="Pilih Mata Kuliah">
-                    <option value="1">Mata Kuliah 1</option>
-                    <option value="2">Mata Kuliah 2</option>
-                    <option value="3">Mata Kuliah 3</option>
-                </select>
-            </div>
-        </div>
+        
         <div id="my_camera" class="mx-auto mt-5 mb-4"></div>
         <form action="">
             <div id="pre_take_buttons">
@@ -107,7 +96,7 @@
            
             save_photo();
             simpanGambar();
-            getResponse();
+            //getResponse();
         }
 
         var imageLinks = "";

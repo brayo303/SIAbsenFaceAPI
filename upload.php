@@ -11,7 +11,7 @@ if( move_uploaded_file($_FILES['webcam']['tmp_name'],'upload/'.$filename) ){
 }
 
 $api = new API();
-echo $url;
+echo $api->detectFace($url);
 
 
 
