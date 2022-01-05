@@ -77,8 +77,8 @@ class Controller {
         return $data;
     }
 
-    public function searchIdByMahasiswa($nama) {
-        $sql = "SELECT id FROM Mahasiswa WHERE nama=:nama";
+    public function searchMahasiswaByNama($nama) {
+        $sql = "SELECT * FROM Mahasiswa WHERE nama=:nama";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":nama", $nama);
         $stmt->execute();
