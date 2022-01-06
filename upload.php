@@ -18,13 +18,16 @@ $con = new Controller();
 $arrhasil=$api->detectFace($url);
 
 //var_dump($arrhasil);
+if($arrhasil==true){
+	$maha = $con->searchMahasiswaByNama($arrhasil['name']);
 
-$id = $con->searchIdByMahasiswa($arrhasil['name'])['id'];
+	$con->insertAbsen($arrhasil['confidence'],1,$maha['id'],0);
+	//var_dump($maha);
 
-$con->insertAbsen($arrhasil['name'],1,$id,1);
-
-echo 'cccc';
-
-
+	$hasil = array('status'=>1,'name'=>$maha['nama'],'urlfoto'=>$maha['urlPhoto']);
+}else{
+	$hasil = array('status'=>0);
+}
+echo json_encode($hasil);
 
 ?>

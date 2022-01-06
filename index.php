@@ -34,14 +34,14 @@
             <div class="modal-content bg-secondary">
             
                 <div class="modal-header">
-                    <h1 class="text-light">Absensi Berhasil</h1>
+                    <h1 class="text-light" id="headermodal">Absensi Berhasil</h1>
                 </div class="modal-body">
                 <div style="padding:2vh">
                     <div class="rounded-circle" style="height:50vh;width:100%; overflow:hidden">
-                        <img src = "upload/bryan.jpg" style= "width:100%">
+                        <img src = "upload/bryan.jpg" style= "width:100%" id ="foto">
                         
                     </div>
-                    <h5 class="text-light">Nama Mahasiswa : Bryan Heryanto</h1>
+                    <h5 class="text-light" id = "nama" >Nama Mahasiswa : Bryan Heryanto</h1>
                 <div>
             
             </div>
@@ -118,9 +118,20 @@
 
         function simpanGambar() {
             Webcam.upload( imageLinks, 'upload.php', function(code, text) {
+                var obj = JSON.parse(text);
                 console.log(text);
-                // document.querySelector("#modal").style.display='flex';
-                // setTimeout(reset, 1000);
+                if(obj['status']==1){
+                	document.querySelector("#headermodal").textContent='Berhasil Absen';
+	                document.querySelector("#nama").textContent=obj['name'];
+	                document.querySelector("#foto").src=obj['urlfoto'];
+	                document.querySelector("#modal").style.display='flex';
+            	}else{
+            		document.querySelector("#headermodal").textContent='Gagal Absen';
+	                document.querySelector("#foto").src='';
+	                document.querySelector("#modal").style.display='flex';
+	                document.querySelector("#nama").textContent='silakan coba lagi';
+            	}
+                setTimeout(reset, 1000);
             });
             
 

@@ -57,7 +57,6 @@ class Controller {
         $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Geraldi Akira Surya', '6181801001', 'https://lab.pascal.id/~u6181801031/upload/geraldi.jpg')");
         $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Denise', '6181801002', 'https://lab.pascal.id/~u6181801031/upload/denise.jpg')");
         $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Julyus Andreas', '6181801003', 'https://lab.pascal.id/~u6181801031/upload/julyus.jpg')");
-        $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Chris A', '6181801004', 'https://lab.pascal.id/~u6181801031/upload/chris.jpg')");
         $this->db->exec("INSERT INTO Mahasiswa(nama,npm,urlphoto) VALUES ('Bryan Heryanto', '6181801005', 'https://lab.pascal.id/~u6181801031/upload/bryan.jpg')");
 
         // insert data Jadwal
